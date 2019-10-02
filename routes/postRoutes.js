@@ -110,7 +110,7 @@ router.post("/:id/comments", (req, res) => {
 	const { post_id } = req.params;
 	// Check if the value for text is a truthy value
 	if (!req.body.text) {
-		res.status(400).json({ errorMessage: "Please provide text for the comment." })
+		res.status(400).json({ error: "Please provide text for the comment." })
 	}
 	// Locate the post by the id value
 	db.findById(post_id)
@@ -128,7 +128,7 @@ router.post("/:id/comments", (req, res) => {
 					.catch(error => {
 						res.status(500).json({ error: "There was an error while saving the comment to the database." })
 					})
-				//if unable to locate that post    id
+				//if unable to locate that post id
 			} else {
 				res.status(404).json({ error: "The post for the specified ID does not exist." })
 			}
