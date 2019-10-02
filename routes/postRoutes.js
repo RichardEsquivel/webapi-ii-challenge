@@ -122,8 +122,8 @@ router.post("/:id/comments", (req, res) => {
 							.then(addedComment => {
 								res.status(201).json({ data: addedComment });
 							})
-					})//throw an error 500 if there is a value
-					.catch(err => {
+					})//throw an error 500 if there is an error
+					.catch(error => {
 						res.status(500).json({ error: "There was an error while saving the comment to the database." })
 					})
 				//if unable to locate that post	id
