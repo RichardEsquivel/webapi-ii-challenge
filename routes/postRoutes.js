@@ -105,6 +105,7 @@ router.put('/:id', (req, res) => {
 			res.status(500).json({ error: "The post information could not be modified." })
 		})
 })
+
 router.post("/:id/comments", (req, res) => {
 	const { post_id } = req.params;
 	// Check if the value for text is a truthy value
@@ -114,8 +115,9 @@ router.post("/:id/comments", (req, res) => {
 	// Locate the post by the id value
 	db.findById(post_id)
 		.then(post => {
+			console.log(post)
 			// If post.id is a truthy value
-			if (post.id) {
+			if (post) {
 				db.insertComment(req.body)
 					.then(commentsId => {
 						db.findCommentById(commentsId.id)
@@ -126,12 +128,35 @@ router.post("/:id/comments", (req, res) => {
 					.catch(error => {
 						res.status(500).json({ error: "There was an error while saving the comment to the database." })
 					})
-				//if unable to locate that post	id
+				//if unable to locate that post    id
 			} else {
 				res.status(404).json({ error: "The post for the specified ID does not exist." })
 			}
 		})
 })
+
+// .then(([post]) => {
+// 	console.log(post);
+// 	if (post.length > 0) {
+// 		db.insertComment(post_id)
+// 			.then(commentsId => {
+// 				db.findCommentById(post_id)
+// 					.then(addedComment => {
+// 						res.status(201).json({ data: addedComment });
+// 					})
+// 			})
+// 			.catch(error => {
+// 				console.log(error);
+// 				res.status(500).json({ error: "There was an error while saving the comment to the database." })
+// 			})
+// 	} else {
+// 		res.status(404).json({ error: "The post for the specified ID does not exist." })
+// 	}
+// })
+
+
+
+
 router.get('/:post_id/comments', (req, res) => {
 	const { post_id } = req.params;
 	db.findById(post_id)
