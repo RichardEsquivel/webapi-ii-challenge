@@ -147,6 +147,7 @@ router.get('/:post_id/comments', (req, res) => {
 			}
 		})
 		.catch(error => {
+			console.log(error);
 			res.status(500).json({ error: "The comments information could not be retrieved." });
 		});
 });
