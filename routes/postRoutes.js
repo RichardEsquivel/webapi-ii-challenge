@@ -141,8 +141,7 @@ router.get('/:post_id/comments', (req, res) => {
 					.then(comments => {
 						res.status(200).json(comments);
 					});
-			}
-			else {
+			} else {
 				res.status(404).json({ error: "The post with the specified ID does not exist." });
 			}
 		})
