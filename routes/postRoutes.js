@@ -162,10 +162,15 @@ router.get('/:post_id/comments', (req, res) => {
 	db.findById(post_id)
 		.then(([post]) => {
 			if (post) {
-				db.findPostComments(post_id)
-					.then(comments => {
-						res.status(200).json(comments);
-					});
+				db.findPostComments(post_id).then(comments => {
+					if (!comments.length) {
+						return res.status(404).json({ message: "There are no comments!" })
+					}
+					return res.status(200).json(comments);
+				}
+
+
+				)
 			} else {
 				res.status(404).json({ error: "The post with the specified ID does not exist." });
 			}

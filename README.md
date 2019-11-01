@@ -208,4 +208,4 @@ Create a new React application and connect it to your server:
 - From the React application connect to the `/api/posts` endpoint in the API and show the list of posts.
 - Style the list of posts however you see fit.
 
-.
+..
